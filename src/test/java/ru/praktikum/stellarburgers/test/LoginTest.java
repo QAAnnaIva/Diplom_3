@@ -1,23 +1,23 @@
 package ru.praktikum.stellarburgers.test;
 
 import org.junit.Test;
-import ru.praktikum.stellarburgers.LoginElements;
+import ru.praktikum.stellarburgers.pageobjects.LoginPage;
 
 import static com.codeborne.selenide.Selenide.open;
 
 
 public class LoginTest {
 
-    LoginElements loginElements =
+    LoginPage loginPage =
             open("https://stellarburgers.nomoreparties.site",
-                    LoginElements.class);
+                    LoginPage.class);
 
     //вход через кнопку «Личный кабинет»
     @Test
     public void loginDuePersonalAccount() {
 
-        loginElements.setPersonal();
-        loginElements.loginForm("GPQXQDML@mail.ru","12345678");
+        loginPage.setPersonal();
+        loginPage.loginForm("GPQXQDML@mail.ru","12345678");
 
     }
 
@@ -25,32 +25,32 @@ public class LoginTest {
     @Test
     public void loginDueLoginToAccount() {
 
-        loginElements.loginToAccount();
-        loginElements.loginForm("GPQXQDML@mail.ru","12345678");
+        loginPage.loginToAccount();
+        loginPage.loginForm("GPQXQDML@mail.ru","12345678");
 
     }
 
     //вход через кнопку в форме регистрации
     @Test
     public void loginDueLinkInRegistrationForm() {
-        LoginElements loginElements =
+        LoginPage loginPage =
                 open("https://stellarburgers.nomoreparties.site/register",
-                        LoginElements.class);
+                        LoginPage.class);
 
-        loginElements.setLoginLink();
-        loginElements.loginForm("GPQXQDML@mail.ru","12345678");
+        loginPage.setLoginLink();
+        loginPage.loginForm("GPQXQDML@mail.ru","12345678");
 
     }
 
     //вход через кнопку в форме восстановления пароля
     @Test
     public void loginDuePasswordRestore() {
-        LoginElements loginElements =
+        LoginPage loginPage =
                 open("https://stellarburgers.nomoreparties.site/forgot-password",
-                        LoginElements.class);
+                        LoginPage.class);
 
-        loginElements.setLoginLink();
-        loginElements.loginForm("GPQXQDML@mail.ru","12345678");
+        loginPage.setLoginLink();
+        loginPage.loginForm("GPQXQDML@mail.ru","12345678");
 
     }
 

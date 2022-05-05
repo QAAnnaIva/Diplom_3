@@ -1,32 +1,30 @@
 package ru.praktikum.stellarburgers.test;
 
 import org.junit.Test;
-import ru.praktikum.stellarburgers.ExitElements;
-import ru.praktikum.stellarburgers.LoginElements;
+import ru.praktikum.stellarburgers.pageobjects.ExitPage;
+import ru.praktikum.stellarburgers.pageobjects.LoginPage;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byCssSelector;
 import static com.codeborne.selenide.Selenide.*;
 
 public class ExitTest {
 
 
-    ExitElements exitElements =
+    ExitPage exitPage =
             open("https://stellarburgers.nomoreparties.site/login",
-                    ExitElements.class);
+                    ExitPage.class);
 
 
     @Test
     public void exit() {
 //сначала нужно залогиниться
-        LoginElements loginElements =
-                page(LoginElements.class);
+        LoginPage loginPage =
+                page(LoginPage.class);
 
-        loginElements.loginForm("GPQXQDML@mail.ru","12345678");
-        loginElements.setPersonal();
-//затем выйти
-        exitElements.setExit();
-        $(byCssSelector(".button_button__33qZ0")).shouldHave(text("Войти"));
+        loginPage.loginForm("GPQXQDML@mail.ru","12345678");
+        loginPage.setPersonal();
+//затем выйти и увидеть что на экране отображается кнопка "Войти"
+        exitPage.setExit();
+        exitPage.getText("Войти");
 
     }
 

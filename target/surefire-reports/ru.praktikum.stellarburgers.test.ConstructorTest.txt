@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: ru.praktikum.stellarburgers.test.ConstructorTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.598 sec
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.761 s - in ru.praktikum.stellarburgers.test.ConstructorTest

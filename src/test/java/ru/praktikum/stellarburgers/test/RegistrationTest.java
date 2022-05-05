@@ -1,20 +1,17 @@
 package ru.praktikum.stellarburgers.test;
 
 import org.junit.Test;
-import ru.praktikum.stellarburgers.LoginElements;
-import ru.praktikum.stellarburgers.RegistrationElements;
+import ru.praktikum.stellarburgers.pageobjects.LoginPage;
+import ru.praktikum.stellarburgers.pageobjects.RegistrationPage;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationTest {
 
 
-    RegistrationElements registrationElements =
+    RegistrationPage registrationPage =
             open("https://stellarburgers.nomoreparties.site/login",
-                    RegistrationElements.class);
-
+                    RegistrationPage.class);
 
 
 // успешная регистрация
@@ -22,14 +19,14 @@ public class RegistrationTest {
     public void successRegistration() {
 
 // регистрируем нового пользователя
-    registrationElements.registrationLink();
-    registrationElements.registerForm("Анна",RegistrationElements.getRandomString() + "@mail.ru","12345678");
-    String email = registrationElements.getRegisterEmail().getValue();
-    System.out.println(registrationElements.getRegisterEmail().getValue());
+    registrationPage.registrationLink();
+    registrationPage.registerForm("Анна", RegistrationPage.getRandomString() + "@mail.ru","12345678");
+    String email = registrationPage.getRegisterEmail().getValue();
+    System.out.println(registrationPage.getRegisterEmail().getValue());
 
 // проверяем, что можно залогиниться с созданным аккаунтом (ЗДЕСЬ ДОЛЖНА БЫТЬ ССЫЛКА НА page object для логина)
-    LoginElements loginElements = page(LoginElements.class);
-    loginElements.loginForm(email,"12345678");
+    LoginPage loginPage = page(LoginPage.class);
+    loginPage.loginForm(email,"12345678");
     }
 
 
@@ -38,9 +35,9 @@ public class RegistrationTest {
     public void incorrectPassword() {
 
 // регистрируем нового пользователя
-   registrationElements.registrationLink();
-   registrationElements.registerForm("Анна",RegistrationElements.getRandomString() + "@mail.ru","12345");
-   $(byCssSelector(".Auth_form__3qKeq")).shouldHave(text("Некорректный пароль"));
+   registrationPage.registrationLink();
+   registrationPage.registerForm("Анна", RegistrationPage.getRandomString() + "@mail.ru","12345");
+   registrationPage.getMessage();
 
     }
 

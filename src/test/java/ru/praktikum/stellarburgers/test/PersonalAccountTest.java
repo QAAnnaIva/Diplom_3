@@ -1,35 +1,31 @@
 package ru.praktikum.stellarburgers.test;
 
 import org.junit.Test;
-import org.openqa.selenium.By;
-import ru.praktikum.stellarburgers.ExitElements;
-import ru.praktikum.stellarburgers.LoginElements;
-import ru.praktikum.stellarburgers.PersonalAccountElements;
-import static com.codeborne.selenide.Condition.text;
+import ru.praktikum.stellarburgers.pageobjects.ExitPage;
+import ru.praktikum.stellarburgers.pageobjects.LoginPage;
+import ru.praktikum.stellarburgers.pageobjects.PersonalAccountPage;
 import static com.codeborne.selenide.Selenide.*;
 
 public class PersonalAccountTest {
 
 
-    PersonalAccountElements personalAccount =
+    PersonalAccountPage personalAccount =
             open("https://stellarburgers.nomoreparties.site",
-                    PersonalAccountElements.class);
+                    PersonalAccountPage.class);
 
-
+    ExitPage exitPage = page(ExitPage.class);
+    LoginPage loginPage = page(LoginPage.class);
 
   //авторизованный пользователь
     @Test
     public void authorizedUser() {
-        LoginElements loginElements =
-                page(LoginElements.class);
 
-        ExitElements exitElements = page(ExitElements.class);
         personalAccount.setPersonalAccount();
-        loginElements.loginForm("GPQXQDML@mail.ru","12345678");
-        $(".button_button__33qZ0").shouldHave(text("Оформить заказ"));
+        loginPage.loginForm("GPQXQDML@mail.ru","12345678");
+        personalAccount.getText("Оформить заказ");
         personalAccount.setPersonalAccount();
-        exitElements.setExit();
-        $(".button_button__33qZ0").shouldHave(text("Войти"));
+        exitPage.setExit();
+        exitPage.getText("Войти");
 
     }
 
@@ -38,7 +34,7 @@ public class PersonalAccountTest {
     public void unAuthorizedUser() {
 
         personalAccount.setPersonalAccount();
-        $(".button_button__33qZ0").shouldHave(text("Войти"));
+        exitPage.getText("Войти");
     }
 
     //переход из личного кабинета в конструктор
@@ -46,8 +42,7 @@ public class PersonalAccountTest {
     public void toConstructor() {
 
         personalAccount.setPersonalAccount();
-        personalAccount.setConstructor();
-        $(By.className("BurgerIngredients_ingredients__1N8v2")).shouldHave(text("Соберите бургер"));
+        personalAccount.setConstructor("Соберите бургер");
 
     }
 
@@ -56,8 +51,7 @@ public class PersonalAccountTest {
     public void toLogo() {
 
         personalAccount.setPersonalAccount();
-        personalAccount.setLogo();
-        $(By.className("BurgerIngredients_ingredients__1N8v2")).shouldHave(text("Соберите бургер"));
+        personalAccount.setLogo("Соберите бургер");
 
     }
 
